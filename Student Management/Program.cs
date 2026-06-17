@@ -21,7 +21,8 @@ class Program
             Console.WriteLine("2. Update a student");
             Console.WriteLine("3. Delete a student");
             Console.WriteLine("4. View all students");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. View selected student via ID");
+            Console.WriteLine("6. Exit");
             Console.WriteLine("Please input one of these number to use our service!");
 
             int input = Convert.ToInt32(Console.ReadLine());
@@ -62,14 +63,28 @@ class Program
                     Console.WriteLine("Which student do u want to delete?");
                     int deleteID = Convert.ToInt32(Console.ReadLine());
                     Student unknown = StudentService.findStudent(deleteID);
-                    if (unknown == null) break;
+                    if (unknown == null)
+                    {
+                        Console.WriteLine("this student is not in the list!");
+                        break;
+                    }
                     StudentService.deleteStudent(unknown);
                     break;
                 case 4:
                     StudentService.getAllStudent();
                     break;
-
                 case 5:
+                    Console.WriteLine("Which student do u want to view?");
+                    int iD = Convert.ToInt32(Console.ReadLine());
+                    Student interestedStudent = StudentService.findStudent(iD);
+                    if (interestedStudent == null)
+                    {
+                        Console.WriteLine("this student is not in the list!");
+                        break;
+                    }
+                    StudentService.getOneStudent(interestedStudent);
+                    break;
+                case 6:
                     return;
                 default:
                     Console.WriteLine("Invalid number! Please try again.");

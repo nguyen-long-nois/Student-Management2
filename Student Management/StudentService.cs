@@ -20,6 +20,11 @@ class StudentService
         }
         
     }
+    public static void getOneStudent(Student a)
+    {
+        Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
+        Console.WriteLine($"{a.Id,-10}{a.Name,-20}{a.Age,-8}{a.GPA,-8}");
+    }
     public static void getAllStudent()
     {
         if (notes.Count == 0)
