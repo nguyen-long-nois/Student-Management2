@@ -4,10 +4,10 @@ using System.Text;
 
 class Student
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public double GPA { get; set; }
+    public int Id { get; set; } 
+    public string Name { get; set; } 
+    public int Age { get; set; } 
+    public double GPA { get; set; } 
     public Student(int id, string name, int age, double grade)
     {
         Id = id;
@@ -15,5 +15,6 @@ class Student
         Age = age;
         GPA = grade;
     }
+    public Student() { }
 }
 
