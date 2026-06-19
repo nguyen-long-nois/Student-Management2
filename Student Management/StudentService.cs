@@ -2,61 +2,75 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 class StudentService
 {
-    static List<Student> notes = new List<Student>();
     public static void addStudent(Student a)
     {
-        if (a.Age < 0 || a.Age > 18)
+        if (a.Age < 0 || a.Age > 25)
         {
             Console.WriteLine("invalid age!");
         }
-        else if(a.GPA <0 || a.GPA >10) {
-            Console.WriteLine("invalid grade!");
+        else if (a.GPA < 0 || a.GPA > 10)
+        {
+            Console.WriteLine("the grade must be in interval [0, 10]");
+        }
+        else if (a.Name == "")
+        {
+            Console.WriteLine("student must has a name!");
         }
         else
         {
-            notes.Add(a);
-        }
-        
-    }
-    public static void getOneStudent(Student a)
-    {
-        Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
-        Console.WriteLine($"{a.Id,-10}{a.Name,-20}{a.Age,-8}{a.GPA,-8}");
-    }
-    public static void getAllStudent()
-    {
-        if (notes.Count == 0)
-        {
-            Console.WriteLine("List is empty!");
-        }
-        else
-        {
-            Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
-            foreach (Student a in notes)
+            if (Repository.GetOneStudent(a.Id) != null)
             {
-                Console.WriteLine($"{a.Id,-10}{a.Name,-20}{a.Age,-8}{a.GPA,-8}");
+                Console.WriteLine("Student already exist in the database!");
+                return;
             }
+            Repository.AddStudent(a);
         }
     }
-    public static Student findStudent(int id)
+    public static Student GetOneStudent(int id)
     {
-        Student target = notes.Find(a => a.Id == id);
+        Student target = Repository.GetOneStudent(id);
+        if (target == null)
+        {
+            Console.WriteLine("student doesn't exist in the list!");
+        }
         return target;
     }
-    public static void updateStudent(int id, string name, int age, double score)
+    public static void UpdateStudent(int id, string name, int age, double gpa)
     {
-        Student a = findStudent(id);
-        a.Name = name;
-        a.Age = age;
-        a.GPA = score;
-    }
-    public static void deleteStudent(Student a)
-    { 
-        notes.Remove(a);
-        Console.WriteLine("Delete student successfully!");
-    }
+        if (Repository.GetOneStudent(id) == null)
+        {
+            Console.WriteLine("Student doesn't exist in the database!");
+        }
+        else if (age < 0 || age > 25)
+        {
+            Console.WriteLine("invalid age!");
+        }
+        else if (gpa < 0 || gpa > 10)
+        {
+            Console.WriteLine("the grade must be in interval [0, 10]");
+        }
+        else if (name == "")
+        {
+            Console.WriteLine("student must has a name!");
+        }
+        else 
+        {
+            Repository.UpdateStudent(new Student(id, name, age, gpa));
+            Console.WriteLine("student info got updated!");
+        }
         
+    }
+    public static void DeleteStudent(int id)
+    {
+        if(Repository.GetOneStudent(id) == null)
+        {
+            Console.WriteLine("Student doesn't exist in the database!");
+        }
+        Repository.DeleteStudent(id);
+        Console.WriteLine("delete successfully!");
+    }
 }
 
