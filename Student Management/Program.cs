@@ -28,39 +28,46 @@ class Program
             Console.WriteLine("6. Exit");
             Console.WriteLine("Please input one of these number to use our service!");
 
-            int input = Convert.ToInt32(Console.ReadLine());
+            int input = student.ConvertInteger(Console.ReadLine());
             switch (input)
             {
                 case 1:
                     Console.WriteLine("What's that student's ID?");
-                    int id = Convert.ToInt32(Console.ReadLine());
+                    int id = student.ConvertInteger(Console.ReadLine());
+                    if (id == -1) break;
                     Console.WriteLine("What's that student's name?");
                     string studentName = Console.ReadLine();
                     Console.WriteLine("What's that student's age?");
-                    int age = Convert.ToInt32(Console.ReadLine());
+                    int age = student.ConvertInteger(Console.ReadLine());
+                    if (age == -1) break;
                     Console.WriteLine("What's that student's GPA?");
-                    double grade = Convert.ToDouble(Console.ReadLine());
+                    double grade = student.ConvertDouble(Console.ReadLine());
+                    if (grade == -1) break;
                     student.AddStudent(new Student(id, studentName, age, grade));
                     break;
                 case 2:
                     Console.WriteLine("Which student do u want to update?");
-                    int ID = Convert.ToInt32(Console.ReadLine());
+                    int ID = student.ConvertInteger(Console.ReadLine());
+                    if (ID == -1) break;
                     Console.WriteLine("what's the new name?");
                     string Name = Console.ReadLine();
                     Console.WriteLine("what's the new age?");
-                    int Age = Convert.ToInt32(Console.ReadLine());
+                    int Age = student.ConvertInteger(Console.ReadLine());
+                    if (Age == -1) break;
                     Console.WriteLine("what's the new grade?");
-                    double GPA = Convert.ToDouble(Console.ReadLine());
+                    double GPA = student.ConvertDouble(Console.ReadLine());
+                    if (GPA == -1) break;
                     student.UpdateStudent(new Student(ID, Name, Age, GPA));
                     break;
                 case 3:
                     Console.WriteLine("Which student do u want to delete?");
-                    int deleteID = Convert.ToInt32(Console.ReadLine());
+                    int deleteID = student.ConvertInteger(Console.ReadLine());
+                    if (deleteID == -1) break;
                     student.DeleteStudent(deleteID);
                     break;
                 case 4:
                     Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
-                    List<Student> students = Repository.GetAllStudent();
+                    List<Student> students = student.GetAllStudent();
                     foreach(Student a in students)
                     {
                         Console.WriteLine($"{a.Id,-10}{a.Name,-20}{a.Age,-8}{a.GPA,-8}");
@@ -68,7 +75,8 @@ class Program
                     break;
                 case 5:
                     Console.WriteLine("Which student do u want to view?");
-                    int iD = Convert.ToInt32(Console.ReadLine());
+                    int iD = student.ConvertInteger(Console.ReadLine());
+                    if (iD == -1) break;
                     Student b = student.GetOneStudent(iD);
                     if (b != null)
                     {
@@ -79,7 +87,7 @@ class Program
                 case 6:
                     return;
                 default:
-                    Console.WriteLine("Invalid number! Please try again.");
+                    Console.WriteLine("Invalid input! Please try again.");
                     break;
             }
         }

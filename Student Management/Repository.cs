@@ -32,7 +32,7 @@ class Repository
             }
         }
     } 
-    public static List<Student> GetAllStudent()
+    public List<Student> GetAllStudent()
     {
         List<Student> students = new List<Student>();
         using (SqlConnection connection = new SqlConnection(connectionKey))
@@ -54,7 +54,7 @@ class Repository
         }
         return students;
     }
-    public static void AddStudent(Student a)
+    public void AddStudent(Student a)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
@@ -67,7 +67,7 @@ class Repository
             cmd.ExecuteNonQuery();
         }
     }
-    public static int DeleteStudent(int id)
+    public int DeleteStudent(int id)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
@@ -77,7 +77,7 @@ class Repository
             return cmd.ExecuteNonQuery();
         }
     }
-    public static int UpdateStudent(Student a)
+    public int UpdateStudent(Student a)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
