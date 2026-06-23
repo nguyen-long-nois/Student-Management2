@@ -2,6 +2,8 @@
 using System.Data.Common;
 using System.Numerics;
 using System.Xml.Linq;
+using Interface;
+using service;
 
 
 class Program
@@ -13,6 +15,7 @@ class Program
     
     static void menu()
     {
+        IStudentService student = new StudentService();
         while (true)
         {
             Console.WriteLine("Welcome to student management app!");
@@ -37,7 +40,7 @@ class Program
                     int age = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("What's that student's GPA?");
                     double grade = Convert.ToDouble(Console.ReadLine());
-                    StudentService.addStudent(new Student(id, studentName, age, grade));
+                    student.AddStudent(new Student(id, studentName, age, grade));
                     break;
                 case 2:
                     Console.WriteLine("Which student do u want to update?");
@@ -48,12 +51,12 @@ class Program
                     int Age = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("what's the new grade?");
                     double GPA = Convert.ToDouble(Console.ReadLine());
-                    StudentService.UpdateStudent(ID, Name, Age, GPA);
+                    student.UpdateStudent(new Student(ID, Name, Age, GPA));
                     break;
                 case 3:
                     Console.WriteLine("Which student do u want to delete?");
                     int deleteID = Convert.ToInt32(Console.ReadLine());
-                    StudentService.DeleteStudent(deleteID);
+                    student.DeleteStudent(deleteID);
                     break;
                 case 4:
                     Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
@@ -66,7 +69,7 @@ class Program
                 case 5:
                     Console.WriteLine("Which student do u want to view?");
                     int iD = Convert.ToInt32(Console.ReadLine());
-                    Student b = StudentService.GetOneStudent(iD);
+                    Student b = student.GetOneStudent(iD);
                     if (b != null)
                     {
                         Console.WriteLine($"{"ID",-10}{"Name",-20}{"Age",-8}{"GPA",-8}");
