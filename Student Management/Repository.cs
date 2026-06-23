@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 class Repository
 {
     const string connectionKey = "Server = (localdb)\\MSSQLLocalDB; Database = StudentList; Trusted_Connection=true";
-    public static Student GetOneStudent(int id)
+    public Student GetOneStudent(int id)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
@@ -67,17 +67,17 @@ class Repository
             cmd.ExecuteNonQuery();
         }
     }
-    public static void DeleteStudent(int id)
+    public static int DeleteStudent(int id)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
             connection.Open();
             SqlCommand cmd = new SqlCommand("DELETE FROM LIST \n WHERE ID = @Id", connection);
             cmd.Parameters.Add(new SqlParameter("Id", id));
-            cmd.ExecuteNonQuery();
+            return cmd.ExecuteNonQuery();
         }
     }
-    public static void UpdateStudent(Student a)
+    public static int UpdateStudent(Student a)
     {
         using (SqlConnection connection = new SqlConnection(connectionKey))
         {
@@ -87,7 +87,7 @@ class Repository
             cmd.Parameters.Add(new SqlParameter("name", a.Name));
             cmd.Parameters.Add(new SqlParameter("age", a.Age));
             cmd.Parameters.Add(new SqlParameter("gpa", a.GPA));
-            cmd.ExecuteNonQuery();
+            return cmd.ExecuteNonQuery();
         }
     }
 }
