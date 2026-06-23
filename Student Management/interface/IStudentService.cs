@@ -11,5 +11,8 @@ namespace Interface
         public Student GetOneStudent(int id);
         public void UpdateStudent(Student a);
         public void DeleteStudent(int id);
+        public List<Student> GetAllStudent();
+        public int ConvertInteger(string id);
+        public double ConvertDouble(string grade);
     }
 }
